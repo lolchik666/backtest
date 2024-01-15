@@ -246,6 +246,14 @@ ihtiyatsız ve en ibret almazı insandır.
 <button onclick="speakText()">Dinle</button>
 </center>
 <script>
+	if ('speechSynthesis' in window) {
+    // Request TTS permissions if needed
+    window.speechSynthesis.onvoiceschanged = function () {
+        // TTS voices are ready
+    };
+} else {
+    console.error('Text-to-speech not supported on this browser.');
+}
 function speakText() {
     var textToSpeak = document.getElementById('textToSpeak').value;
     var selectedLanguage = document.getElementById('language').value;
