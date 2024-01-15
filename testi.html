@@ -246,13 +246,14 @@ ihtiyatsız ve en ibret almazı insandır.
 <button onclick="speakText()">Dinle</button>
 </center>
 <script>
-	if ('speechSynthesis' in window) {
-    // Request TTS permissions if needed
-    window.speechSynthesis.onvoiceschanged = function () {
-        // TTS voices are ready
-    };
-} else {
-    console.error('Text-to-speech not supported on this browser.');
+	navigator.permissions.query({ name: 'speech-synthesis' }).then(result => {
+    if (result.state === 'granted') {
+        // TTS permissions granted
+    } else {
+        console.error('Text-to-speech permissions not granted.');
+    }
+});
+
 }
 function speakText() {
     var textToSpeak = document.getElementById('textToSpeak').value;
